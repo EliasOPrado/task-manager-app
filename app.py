@@ -7,8 +7,8 @@ from bson.objectid import ObjectId
 app = Flask(__name__)
 
 #App configuration
-app.config['MONG_DBNAME'] = 'database name here'
-app.config['MONGO_URI'] = 'url'
+app.config['MONG_DBNAME'] = 'task_manager'
+app.config['MONGO_URI'] = 'mongodb+srv://elias:kb01210012@myfirstcluster-uyvei.mongodb.net/task_manager?retryWrites=true'
                             
 
 mongo = PyMongo(app)
@@ -28,6 +28,13 @@ def insert_task():
     tasks=mongo.db.tasks
     tasks.insert_one(request.form.to_dict())
     return redirect(url_for('get_tasks'))
+    
+@app.route('/edit_task/<task_id>')
+def edit_task(task_id):
+    the_task =  mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    all_categories =  mongo.db.categories.find()
+    return render_template('edittask.html', task=the_task,
+                           categories=all_categories)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
