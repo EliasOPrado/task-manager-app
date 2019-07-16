@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <!--for loop-->
+        {% for task in tasks %}
+        <!--mongodb tables-->
+        {{task.task_name}}
+        {{task.category_name}}
+        {{task.task_description}}
+        {{task.due_date}}
+        {% endfor %}
+    </body>
+</html>
