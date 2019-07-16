@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 #App configuration
 app.config['MONG_DBNAME'] = 'task_manager'
-app.config['MONGO_URI'] = 'mongodb+srv://#####:######@myfirstcluster-uyvei.mongodb.net/#######?retryWrites=true'
+app.config['MONGO_URI'] = 'mongodb+srv://#####:###################################################'
                             
 
 mongo = PyMongo(app)
