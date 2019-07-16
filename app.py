@@ -14,16 +14,13 @@ app.config['MONGO_URI'] = 'mongodb+srv://elias:kb01210012@myfirstcluster-uyvei.m
 mongo = PyMongo(app)
 
 
-#Templatings
 @app.route('/')
-
 @app.route('/get_tasks')
 def get_tasks():
     return render_template("tasks.html", tasks=mongo.db.tasks.find())
-    
-    
-#App connection
-if __name__ == "__main__":
-    app.run(host = os.environ.get('IP'),
-        port = int(os.environ.get('PORT')),
-        debug = True)
+
+
+if __name__ == '__main__':
+    app.run(host=os.environ.get('IP'),
+            port=int(os.environ.get('PORT')),
+            debug=True)

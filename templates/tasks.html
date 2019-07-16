@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        
-    </head>
-    <body>
+<!--place the parent template that we want to inject to-->
+{% extends 'base.html' %}
+{% block content %}
         <!--for loop-->
         {% for task in tasks %}
         <!--mongodb tables-->
@@ -12,5 +9,18 @@
         {{task.task_description}}
         {{task.due_date}}
         {% endfor %}
-    </body>
-</html>
+<ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+ </ul>
+{% endblock %}
