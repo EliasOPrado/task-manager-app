@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<h3>Add Task</h3>
+<h3>Edit Tasks</h3>
 
 <div class="row">
     <form action="{{ url_for('insert_task') }}" method="POST" class="col s12">
@@ -9,7 +9,10 @@
                 <select id="category" name="category_name">
                 <option value="" disabled selected>Choose Category</option>
                 {% for cat in categories %}
-                <option value="{{cat.category_name}}">{{cat.category_name}}</option>
+                {% if cat.category_name == task.category_name %}
+                <option value="{{cat.category_name}}" selected>{{cat.category_name}}</option>
+                {% else %}
+                {% endif %}
                 {% endfor %}
                 </select>
                 <label>Task Category</label>
@@ -18,12 +21,12 @@
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">assignment</i>
-                <input id="task_name" name="task_name" type="text" class="validate">
+                <input id="task_name" name="task_name" type="text" class="validate" value="{{task.task_name}}">
                 <label for="icon_prefix">Task Name</label>
             </div>
             <div class="input-field col s12">
                 <i class="material-icons prefix">subject</i>
-                <textarea id="task_description" name="task_description" class="materialize-textarea"></textarea>
+                <textarea id="task_description" name="task_description" class="materialize-textarea">{{task.task_description}}</textarea>
                 <label for="icon_telephone">Task Description</label>
             </div>
             <div class="input-field col s12">
@@ -35,7 +38,11 @@
         <div class="row">
             <div class="switch">
                 <label>
-      <input id="is_urgent" name="is_urgent" type="checkbox">
+                    {% if task.is_urgent %}
+      <input id="is_urgent" name="is_urgent" type="checkbox" checked>
+             {% else %}
+             <input id="is_urgent" name="is_urgent" type="checkbox">
+             {% endif %}
       <span class="lever"></span>
       Is urgent
     </label>
@@ -43,10 +50,20 @@
         </div>
         <div class="row">
             <button class="btn waves-effect waves-light" type="submit" name="action">
-                Add Task
+                Edit Task
     <i class="material-icons right">playlist_add</i>
   </button>
         </div>
     </form>
 </div>
+<!--needed to be placed here because for some reason the jquery is not biding from base.html-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //local variable
+        due_date = Date.parse('{{task.due_date}}');
+        //line 34 id // needed to inject the due date into the form field associeated to the form picker.
+        $('#due_date').pickadate('picker').set(select, due_date, {format: 'dd/mm/yyyy'}).trigger('change')
+    });
+</script>
 {% endblock %}
