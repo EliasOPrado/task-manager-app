@@ -49,6 +49,14 @@ def update_task(task_id):
         })
     return redirect(url_for('get_tasks'))
 
+@app.route('/delete_task/<task_id>')
+def delete_task(task_id):
+    #will come inside the mongodb then tasks database
+    #then will remove the table based on its _id:ObjectId
+    mongo.db.tasks.remove({'_id':ObjectId(task_id)})
+    #Will reload the page
+    return redirect(url_for('get_tasks'))
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
